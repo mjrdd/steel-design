@@ -12,7 +12,11 @@ const config = {
 			pages: "build",
 			assets: "build",
 			precompress: true
-		})
+		}),
+
+		alias: {
+			"$components/*": "src/components/*"
+		}
 	}
 };
 
