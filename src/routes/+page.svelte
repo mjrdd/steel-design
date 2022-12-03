@@ -62,7 +62,7 @@
 		Qw: number;
 		ro: number | string;
 		H: number | string;
-		"tan(α)": number | string;
+		"tan(a)": number | string;
 		Iw: number | string;
 		zA: number | string;
 		zB: number | string;
@@ -91,19 +91,14 @@
 	let aiscShapesEnglish: AISCShapes[] | undefined;
 	let aiscShapesMetric: AISCShapes[] | undefined;
 
-	onMount(() => {
-		import("$lib/data/aisc-shapes-english.json").then((res) => {
-			aiscShapesEnglish = res.default;
-		});
-
-		import("$lib/data/aisc-shapes-metric.json").then((res) => {
-			aiscShapesMetric = res.default;
-		});
-	});
-
 	let activeUnits: "english" | "metric" = "english";
+	let activeAiscShape = "W44X335";
+	let activeAiscShapeData: AISCShapes | undefined;
 
-	function getActiveAiscShapeData(units: typeof activeUnits, shape: string) {
+	function getActiveAiscShapeData(
+		units: typeof activeUnits,
+		shape: string
+	): AISCShapes | undefined {
 		if (!(aiscShapesEnglish && aiscShapesMetric)) return;
 
 		return (units === "english" ? aiscShapesEnglish : aiscShapesMetric).find(
@@ -111,10 +106,24 @@
 		);
 	}
 
+	onMount(() => {
+		const dep1 = import("$lib/data/aisc-shapes-english.json").then((res) => {
+			aiscShapesEnglish = res.default;
+			return res;
+		});
+
+		const dep2 = import("$lib/data/aisc-shapes-metric.json").then((res) => {
+			aiscShapesMetric = res.default;
+			return res;
+		});
+
+		Promise.allSettled([dep1, dep2]).then(() => {
+			activeAiscShapeData = getActiveAiscShapeData(activeUnits, activeAiscShape);
+		});
+	});
+
 	$: activeAiscShape = activeUnits === "english" ? "W44X335" : "W1100X499";
 	$: activeAiscShapeData = getActiveAiscShapeData(activeUnits, activeAiscShape);
-
-	$: console.log(activeAiscShapeData);
 </script>
 
 <div class="window">
@@ -135,17 +144,32 @@
 		</div>
 
 		{#if aiscShapesEnglish && aiscShapesMetric}
-			<select bind:value={activeAiscShape}>
-				{#if activeUnits === "english"}
-					{#each aiscShapesEnglish as shape}
-						<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
-					{/each}
-				{:else}
-					{#each aiscShapesMetric as shape}
-						<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
-					{/each}
+			<div class="section">
+				<select bind:value={activeAiscShape}>
+					{#if activeUnits === "english"}
+						{#each aiscShapesEnglish as shape}
+							<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
+						{/each}
+					{:else}
+						{#each aiscShapesMetric as shape}
+							<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
+						{/each}
+					{/if}
+				</select>
+			</div>
+
+			<div class="section">
+				{#if activeAiscShapeData}
+					<table>
+						{#each Object.entries(activeAiscShapeData) as [key, value]}
+							<tr>
+								<th>{key}</th>
+								<td>{value}</td>
+							</tr>
+						{/each}
+					</table>
 				{/if}
-			</select>
+			</div>
 		{:else}
 			<p>Loading AISC Shapes data...</p>
 		{/if}
