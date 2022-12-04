@@ -1,40 +1,29 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import type { AISCShapes } from "$lib/aisc-shapes.types";
-
-	let aiscShapesEnglish: AISCShapes[] | undefined;
-	let aiscShapesMetric: AISCShapes[] | undefined;
-
-	let activeUnits: "english" | "metric" = "english";
-	let activeAiscShape = "W44X335";
-	let activeAiscShapeData: AISCShapes | undefined;
-
-	function getActiveAiscShapeData(units: typeof activeUnits, shape: string) {
-		if (!(aiscShapesEnglish && aiscShapesMetric)) return;
-
-		return (units === "english" ? aiscShapesEnglish : aiscShapesMetric).find(
-			(item) => item["EDI_Std_Nomenclature"] === shape
-		);
-	}
+	import {
+		aiscShapesDatabaseEnglish,
+		aiscShapesDatabaseMetric,
+		activeUnits,
+		activeAiscShape,
+		activeAiscShapeData,
+		subscriptions
+	} from "$lib/stores";
 
 	onMount(() => {
-		const dep1 = import("$lib/data/aisc-shapes-english.json").then((res) => {
-			aiscShapesEnglish = res.default;
-			return res;
+		Promise.allSettled([
+			import("$lib/data/aisc-shapes-english.json"),
+			import("$lib/data/aisc-shapes-metric.json")
+		]).then(([res1, res2]) => {
+			if (res1.status === "fulfilled" && res2.status === "fulfilled") {
+				$aiscShapesDatabaseEnglish = res1.value.default;
+				$aiscShapesDatabaseMetric = res2.value.default;
+			}
 		});
 
-		const dep2 = import("$lib/data/aisc-shapes-metric.json").then((res) => {
-			aiscShapesMetric = res.default;
-			return res;
-		});
-
-		Promise.allSettled([dep1, dep2]).then(() => {
-			activeAiscShapeData = getActiveAiscShapeData(activeUnits, activeAiscShape);
-		});
+		return () => {
+			subscriptions.forEach((subscription) => subscription());
+		};
 	});
-
-	$: activeAiscShape = activeUnits === "english" ? "W44X335" : "W1100X499";
-	$: activeAiscShapeData = getActiveAiscShapeData(activeUnits, activeAiscShape);
 </script>
 
 <div class="window">
@@ -46,33 +35,37 @@
 				type="radio"
 				name="units"
 				id="units-english"
-				bind:group={activeUnits}
+				bind:group={$activeUnits}
 				value="english" />
 			<label for="units-english">English</label>
 
-			<input type="radio" name="units" id="units-metric" bind:group={activeUnits} value="metric" />
+			<input type="radio" name="units" id="units-metric" bind:group={$activeUnits} value="metric" />
 			<label for="units-metric">Metric</label>
 		</div>
 
-		{#if aiscShapesEnglish && aiscShapesMetric}
+		{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
 			<div class="section">
-				<select bind:value={activeAiscShape}>
-					{#if activeUnits === "english"}
-						{#each aiscShapesEnglish as shape}
-							<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
+				<select bind:value={$activeAiscShape}>
+					{#if $activeUnits === "english"}
+						{#each $aiscShapesDatabaseEnglish as shape}
+							<option value={shape["EDI_Std_Nomenclature"]}>
+								{shape["EDI_Std_Nomenclature"]}
+							</option>
 						{/each}
 					{:else}
-						{#each aiscShapesMetric as shape}
-							<option value={shape["EDI_Std_Nomenclature"]}>{shape["EDI_Std_Nomenclature"]}</option>
+						{#each $aiscShapesDatabaseMetric as shape}
+							<option value={shape["EDI_Std_Nomenclature"]}>
+								{shape["EDI_Std_Nomenclature"]}
+							</option>
 						{/each}
 					{/if}
 				</select>
 			</div>
 
 			<div class="section">
-				{#if activeAiscShapeData}
+				{#if $activeAiscShapeData}
 					<table>
-						{#each Object.entries(activeAiscShapeData) as [key, value]}
+						{#each Object.entries($activeAiscShapeData) as [key, value]}
 							<tr>
 								<th>{key}</th>
 								<td>{value}</td>
