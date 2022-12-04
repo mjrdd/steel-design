@@ -178,8 +178,6 @@
 
 <style>
 	.window {
-		min-width: 100vw;
-		min-height: 100vh;
 		padding: 16px;
 		display: grid;
 	}
