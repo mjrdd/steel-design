@@ -31,16 +31,17 @@
 		<div class="section">
 			<h3>Units</h3>
 
-			<input
-				type="radio"
-				name="units"
-				id="units-english"
-				bind:group={$activeUnits}
-				value="english" />
-			<label for="units-english">English</label>
+			<div class="toggle-units">
+				<label>
+					<input type="radio" name="units" bind:group={$activeUnits} value="english" />
+					English
+				</label>
 
-			<input type="radio" name="units" id="units-metric" bind:group={$activeUnits} value="metric" />
-			<label for="units-metric">Metric</label>
+				<label>
+					<input type="radio" name="units" bind:group={$activeUnits} value="metric" />
+					Metric
+				</label>
+			</div>
 		</div>
 
 		{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
@@ -84,9 +85,28 @@
 	.window {
 		padding: 16px;
 		display: grid;
+		grid-template-columns: repeat(auto-fill, 320px);
 	}
 
 	.section {
 		margin: 16px 0;
+	}
+
+	.toggle-units {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+	}
+
+	.toggle-units label {
+		padding: 8px 16px;
+		cursor: pointer;
+	}
+
+	.toggle-units label:hover {
+		background-color: hsl(0, 0%, 90%);
+	}
+
+	select {
+		width: 100%;
 	}
 </style>
