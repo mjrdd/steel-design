@@ -1,92 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-
-	interface AISCShapes {
-		Type: string;
-		EDI_Std_Nomenclature: string;
-		AISC_Manual_Label: string;
-		T_F: string;
-		W: number;
-		A: number;
-		d: number;
-		ddet: number;
-		Ht: number | string;
-		h: number | string;
-		OD: number | string;
-		bf: number;
-		bfdet: number;
-		B: number | string;
-		b: number | string;
-		ID: number | string;
-		tw: number;
-		twdet: number;
-		"twdet/2": number;
-		tf: number;
-		tfdet: number;
-		t: number | string;
-		tnom: number | string;
-		tdes: number | string;
-		kdes: number;
-		kdet: number;
-		k1: number;
-		x: number | string;
-		y: number | string;
-		eo: number | string;
-		xp: number | string;
-		yp: number | string;
-		"bf/2tf": number;
-		"b/t": number;
-		"b/tdes": number | string;
-		"h/tw": number;
-		"h/tdes": number | string;
-		"D/t": number | string;
-		Ix: number;
-		Zx: number;
-		Sx: number;
-		rx: number;
-		Iy: number;
-		Zy: number;
-		Sy: number;
-		ry: number;
-		Iz: number | string;
-		rz: number | string;
-		Sz: number | string;
-		J: number;
-		Cw: number;
-		C: number | string;
-		Wno: number;
-		Sw1: number;
-		Sw2: number | string;
-		Sw3: number | string;
-		Qf: number;
-		Qw: number;
-		ro: number | string;
-		H: number | string;
-		"tan(a)": number | string;
-		Iw: number | string;
-		zA: number | string;
-		zB: number | string;
-		zC: number | string;
-		wA: number | string;
-		wB: number | string;
-		wC: number | string;
-		SwA: number | string;
-		SwB: number | string;
-		SwC: number | string;
-		SzA: number | string;
-		SzB: number | string;
-		SzC: number | string;
-		rts: number;
-		ho: number;
-		PA: number;
-		PA2: number | string;
-		PB: number;
-		PC: number;
-		PD: number;
-		T: number;
-		WGi: number;
-		WGo: number | string;
-	}
+	import type { AISCShapes } from "$lib/aisc-shapes.types";
 
 	let aiscShapesEnglish: AISCShapes[] | undefined;
 	let aiscShapesMetric: AISCShapes[] | undefined;
@@ -95,10 +9,7 @@
 	let activeAiscShape = "W44X335";
 	let activeAiscShapeData: AISCShapes | undefined;
 
-	function getActiveAiscShapeData(
-		units: typeof activeUnits,
-		shape: string
-	): AISCShapes | undefined {
+	function getActiveAiscShapeData(units: typeof activeUnits, shape: string) {
 		if (!(aiscShapesEnglish && aiscShapesMetric)) return;
 
 		return (units === "english" ? aiscShapesEnglish : aiscShapesMetric).find(
