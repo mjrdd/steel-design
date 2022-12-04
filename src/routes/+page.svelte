@@ -1,29 +1,21 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { WebviewWindow } from "@tauri-apps/api/window";
 	import {
 		aiscShapesDatabaseEnglish,
 		aiscShapesDatabaseMetric,
 		activeUnits,
 		activeAiscShape,
-		activeAiscShapeData,
-		subscriptions
+		activeAiscShapeData
 	} from "$lib/stores";
 
-	onMount(() => {
-		Promise.allSettled([
-			import("$lib/data/aisc-shapes-english.json"),
-			import("$lib/data/aisc-shapes-metric.json")
-		]).then(([res1, res2]) => {
-			if (res1.status === "fulfilled" && res2.status === "fulfilled") {
-				$aiscShapesDatabaseEnglish = res1.value.default;
-				$aiscShapesDatabaseMetric = res2.value.default;
-			}
+	async function openDatabase() {
+		const databaseWindow = new WebviewWindow("database-window", {
+			title: "AISC Shapes Database v15.0",
+			url: "/database"
 		});
 
-		return () => {
-			subscriptions.forEach((subscription) => subscription());
-		};
-	});
+		await databaseWindow.show();
+	}
 </script>
 
 <div class="window">
@@ -42,6 +34,10 @@
 					Metric
 				</label>
 			</div>
+		</div>
+
+		<div class="section">
+			<button on:click={openDatabase}>Open Database</button>
 		</div>
 
 		{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
