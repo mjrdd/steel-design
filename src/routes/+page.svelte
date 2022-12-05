@@ -105,4 +105,25 @@
 	select {
 		width: 100%;
 	}
+
+	table {
+		background-color: inherit;
+		border-spacing: 0;
+		width: 100%;
+	}
+
+	tr {
+		height: 36px;
+	}
+
+	th,
+	td {
+		padding-left: 16px;
+		border-bottom: 1px solid #d1d5d9;
+		text-align: left;
+	}
+
+	tr:hover {
+		background-color: hsl(0, 0%, 90%);
+	}
 </style>
