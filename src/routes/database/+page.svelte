@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { aiscShapesDatabaseEnglish, aiscShapesDatabaseMetric, activeUnits } from "$lib/stores";
+	import aiscShapesDatabaseEnglish from "$lib/data/aisc-shapes-english.json";
+	import aiscShapesDatabaseMetric from "$lib/data/aisc-shapes-metric.json";
+	import { activeUnits } from "$lib/stores";
 </script>
 
 <div>
@@ -15,23 +17,21 @@
 		</label>
 	</div>
 
-	{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
-		<table>
+	<table>
+		<tr>
+			{#each Object.keys(($activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric)[0]) as key}
+				<th>{key}</th>
+			{/each}
+		</tr>
+
+		{#each $activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric as aiscShapesDatabase}
 			<tr>
-				{#each Object.keys(($activeUnits === "english" ? $aiscShapesDatabaseEnglish : $aiscShapesDatabaseMetric)[0]) as key}
-					<th>{key}</th>
+				{#each Object.values(aiscShapesDatabase) as value}
+					<td>{value}</td>
 				{/each}
 			</tr>
-
-			{#each $activeUnits === "english" ? $aiscShapesDatabaseEnglish : $aiscShapesDatabaseMetric as aiscShapesDatabase}
-				<tr>
-					{#each Object.values(aiscShapesDatabase) as value}
-						<td>{value}</td>
-					{/each}
-				</tr>
-			{/each}
-		</table>
-	{/if}
+		{/each}
+	</table>
 </div>
 
 <style>
@@ -46,27 +46,6 @@
 	}
 
 	.toggle-units label:hover {
-		background-color: hsl(0, 0%, 90%);
-	}
-
-	table {
-		background-color: inherit;
-		border-spacing: 0;
-		width: 100%;
-	}
-
-	tr {
-		height: 36px;
-	}
-
-	th,
-	td {
-		padding-left: 16px;
-		border-bottom: 1px solid #d1d5d9;
-		text-align: left;
-	}
-
-	tr:hover {
 		background-color: hsl(0, 0%, 90%);
 	}
 </style>
