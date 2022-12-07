@@ -24,25 +24,37 @@
 			<h3>Units</h3>
 
 			<div class="toggle-units">
-				<label>
-					<input type="radio" name="units" bind:group={$activeUnits} value="english" />
+				<label class="flex items-center gap-4">
+					<input
+						type="radio"
+						name="units"
+						value="english"
+						class="radio radio-xs"
+						bind:group={$activeUnits} />
 					English
 				</label>
 
-				<label>
-					<input type="radio" name="units" bind:group={$activeUnits} value="metric" />
+				<label class="flex items-center gap-4">
+					<input
+						type="radio"
+						name="units"
+						value="metric"
+						class="radio radio-xs"
+						bind:group={$activeUnits} />
 					Metric
 				</label>
 			</div>
 		</div>
 
 		<div class="section">
-			<button on:click={openDatabase}>Open Database</button>
+			<button class="btn btn-sm btn-primary" on:click={openDatabase}>Open Database</button>
 		</div>
 
 		{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
 			<div class="section">
-				<select bind:value={$activeAiscShape}>
+				<select
+					class="select select-sm select-bordered w-full max-w-xs"
+					bind:value={$activeAiscShape}>
 					{#if $activeUnits === "english"}
 						{#each $aiscShapesDatabaseEnglish as shape}
 							<option value={shape["EDI_Std_Nomenclature"]}>

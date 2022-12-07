@@ -21,4 +21,6 @@
 	});
 </script>
 
-<slot />
+<div data-theme="corporate">
+	<slot />
+</div>
