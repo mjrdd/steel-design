@@ -4,48 +4,37 @@
 	import { activeUnits } from "$lib/stores";
 </script>
 
-<div>
-	<div class="toggle-units">
-		<label>
-			<input type="radio" name="units" bind:group={$activeUnits} value="english" />
-			English
-		</label>
+<div class="p-8">
+	<h2 class="text-xl font-bold">AISC Shapes Database v15.0</h2>
 
-		<label>
-			<input type="radio" name="units" bind:group={$activeUnits} value="metric" />
-			Metric
-		</label>
-	</div>
+	<label>
+		<input type="radio" name="units" bind:group={$activeUnits} value="english" />
+		English
+	</label>
 
-	<table>
-		<tr>
-			{#each Object.keys(($activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric)[0]) as key}
-				<th>{key}</th>
-			{/each}
-		</tr>
+	<label>
+		<input type="radio" name="units" bind:group={$activeUnits} value="metric" />
+		Metric
+	</label>
 
-		{#each $activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric as aiscShapesDatabase}
+	<table class="table table-compact w-full">
+		<thead>
 			<tr>
-				{#each Object.values(aiscShapesDatabase) as value}
-					<td>{value}</td>
+				<th />
+				{#each Object.keys(($activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric)[0]) as key}
+					<th>{key}</th>
 				{/each}
 			</tr>
-		{/each}
+		</thead>
+		<tbody>
+			{#each $activeUnits === "english" ? aiscShapesDatabaseEnglish : aiscShapesDatabaseMetric as aiscShapesDatabase, index}
+				<tr>
+					<th>{index}</th>
+					{#each Object.values(aiscShapesDatabase) as value}
+						<td>{value}</td>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
 	</table>
 </div>
-
-<style>
-	.toggle-units {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-	}
-
-	.toggle-units label {
-		padding: 8px 16px;
-		cursor: pointer;
-	}
-
-	.toggle-units label:hover {
-		background-color: hsl(0, 0%, 90%);
-	}
-</style>

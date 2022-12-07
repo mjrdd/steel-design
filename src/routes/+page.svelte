@@ -18,40 +18,34 @@
 	}
 </script>
 
-<div class="window">
-	<div>
-		<div class="section">
-			<h3>Units</h3>
+<div class="p-4">
+	<div class="card w-96 bg-base-100 shadow-md">
+		<div class="card-body">
+			<h2 class="card-title">AISC Shape Properties</h2>
 
-			<div class="toggle-units">
-				<label class="flex items-center gap-4">
-					<input
-						type="radio"
-						name="units"
-						value="english"
-						class="radio radio-xs"
-						bind:group={$activeUnits} />
-					English
-				</label>
+			<label class="flex items-center gap-4">
+				<input
+					type="radio"
+					name="units"
+					value="english"
+					class="radio radio-xs"
+					bind:group={$activeUnits} />
+				English
+			</label>
 
-				<label class="flex items-center gap-4">
-					<input
-						type="radio"
-						name="units"
-						value="metric"
-						class="radio radio-xs"
-						bind:group={$activeUnits} />
-					Metric
-				</label>
-			</div>
-		</div>
+			<label class="flex items-center gap-4">
+				<input
+					type="radio"
+					name="units"
+					value="metric"
+					class="radio radio-xs"
+					bind:group={$activeUnits} />
+				Metric
+			</label>
 
-		<div class="section">
 			<button class="btn btn-sm btn-primary" on:click={openDatabase}>Open Database</button>
-		</div>
 
-		{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
-			<div class="section">
+			{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
 				<select
 					class="select select-sm select-bordered w-full max-w-xs"
 					bind:value={$activeAiscShape}>
@@ -69,52 +63,22 @@
 						{/each}
 					{/if}
 				</select>
-			</div>
 
-			<div class="section">
 				{#if $activeAiscShapeData}
-					<table>
-						{#each Object.entries($activeAiscShapeData) as [key, value]}
-							<tr>
-								<th>{key}</th>
-								<td>{value}</td>
-							</tr>
-						{/each}
+					<table class="table table-compact w-full">
+						<tbody>
+							{#each Object.entries($activeAiscShapeData) as [key, value]}
+								<tr>
+									<th>{key}</th>
+									<td>{value}</td>
+								</tr>
+							{/each}
+						</tbody>
 					</table>
 				{/if}
-			</div>
-		{:else}
-			<p>Loading AISC Shapes data...</p>
-		{/if}
+			{:else}
+				<p>Loading AISC Shapes data...</p>
+			{/if}
+		</div>
 	</div>
 </div>
-
-<style>
-	.window {
-		padding: 16px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 320px);
-	}
-
-	.section {
-		margin: 16px 0;
-	}
-
-	.toggle-units {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-	}
-
-	.toggle-units label {
-		padding: 8px 16px;
-		cursor: pointer;
-	}
-
-	.toggle-units label:hover {
-		background-color: hsl(0, 0%, 90%);
-	}
-
-	select {
-		width: 100%;
-	}
-</style>
