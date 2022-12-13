@@ -3,7 +3,7 @@
 	import aiscShapesDatabaseMetric from "$lib/data/aisc-shapes-metric.json";
 	import { activeUnits } from "$lib/stores";
 
-	import { AISC_ENGLISH, AISC_METRIC } from "$lib/data/json";
+	import { AISC_ENGLISH, AISC_METRIC } from "$lib/aisc";
 
 	let units = "english";
 	let types = "_W";
