@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { WebviewWindow } from "@tauri-apps/api/window";
-	import { AISC_ENGLISH, AISC_METRIC } from "$lib/aisc";
+	import { AISC_ENGLISH, AISC_METRIC, type AiscType } from "$lib/aisc";
 
 	let units = "english";
-	let types = "_MC";
+	let types: AiscType = "MC";
 	let shape = "";
 
 	async function openDatabase() {
