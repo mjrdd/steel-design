@@ -1,8 +1,4 @@
 <script lang="ts">
-	import aiscShapesDatabaseEnglish from "$lib/data/aisc-shapes-english.json";
-	import aiscShapesDatabaseMetric from "$lib/data/aisc-shapes-metric.json";
-	import { activeUnits } from "$lib/stores";
-
 	import { AISC_ENGLISH, AISC_METRIC } from "$lib/aisc";
 
 	let units = "english";
