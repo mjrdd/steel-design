@@ -1,14 +1,10 @@
 <script lang="ts">
 	import { WebviewWindow } from "@tauri-apps/api/window";
-	import {
-		aiscShapesDatabaseEnglish,
-		aiscShapesDatabaseMetric,
-		activeUnits,
-		activeAiscShape,
-		activeAiscShapeData
-	} from "$lib/stores";
-	import { AISC_ENGLISH, AISC_METRIC } from "$lib/data/json";
-	console.log(AISC_ENGLISH, AISC_METRIC);
+	import { AISC_ENGLISH, AISC_METRIC } from "$lib/aisc";
+
+	let units = "english";
+	let types = "_MC";
+	let shape = "";
 
 	async function openDatabase() {
 		const databaseWindow = new WebviewWindow("database-window", {
@@ -31,56 +27,41 @@
 					name="units"
 					value="english"
 					class="radio radio-xs"
-					bind:group={$activeUnits} />
+					bind:group={units} />
 				English
 			</label>
 
 			<label class="flex items-center gap-4">
-				<input
-					type="radio"
-					name="units"
-					value="metric"
-					class="radio radio-xs"
-					bind:group={$activeUnits} />
+				<input type="radio" name="units" value="metric" class="radio radio-xs" bind:group={units} />
 				Metric
 			</label>
 
 			<button class="btn btn-sm btn-primary" on:click={openDatabase}>Open Database</button>
 
-			{#if $aiscShapesDatabaseEnglish && $aiscShapesDatabaseMetric}
-				<select
-					class="select select-sm select-bordered w-full max-w-xs"
-					bind:value={$activeAiscShape}>
-					{#if $activeUnits === "english"}
-						{#each $aiscShapesDatabaseEnglish as shape}
-							<option value={shape["EDI_Std_Nomenclature"]}>
-								{shape["EDI_Std_Nomenclature"]}
-							</option>
-						{/each}
-					{:else}
-						{#each $aiscShapesDatabaseMetric as shape}
-							<option value={shape["EDI_Std_Nomenclature"]}>
-								{shape["EDI_Std_Nomenclature"]}
-							</option>
-						{/each}
-					{/if}
-				</select>
+			<select bind:value={types}>
+				{#each Object.keys(units === "english" ? AISC_ENGLISH : AISC_METRIC) as _type}
+					<option value={_type}>{_type}</option>
+				{/each}
+			</select>
 
-				{#if $activeAiscShapeData}
-					<table class="table table-compact w-full">
-						<tbody>
-							{#each Object.entries($activeAiscShapeData) as [key, value]}
-								<tr>
-									<th>{key}</th>
-									<td>{value}</td>
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				{/if}
-			{:else}
-				<p>Loading AISC Shapes data...</p>
-			{/if}
+			<select class="select select-sm select-bordered w-full max-w-xs" bind:value={shape}>
+				{#each (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types] as shapes}
+					<option value={shapes["EDI_Std_Nomenclature"]}>
+						{shapes["EDI_Std_Nomenclature"]}
+					</option>
+				{/each}
+			</select>
+
+			<table class="table table-compact w-full">
+				<tbody>
+					{#each Object.entries((units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].find((r) => r["EDI_Std_Nomenclature"] === shape) || []) as [key, value]}
+						<tr>
+							<th>{key}</th>
+							<td>{value}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
