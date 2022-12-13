@@ -4,7 +4,7 @@ node_modules
 /.svelte-kit
 /package
 /src-tauri/target
-/src/lib/data
+/src/lib/data/json/*.json
 .env
 .env.*
 !.env.example

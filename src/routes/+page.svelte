@@ -7,6 +7,8 @@
 		activeAiscShape,
 		activeAiscShapeData
 	} from "$lib/stores";
+	import { AISC_ENGLISH, AISC_METRIC } from "$lib/data/json";
+	console.log(AISC_ENGLISH, AISC_METRIC);
 
 	async function openDatabase() {
 		const databaseWindow = new WebviewWindow("database-window", {
