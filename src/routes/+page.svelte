@@ -3,8 +3,8 @@
 	import { AISC_ENGLISH, AISC_METRIC, type AiscType } from "$lib/aisc";
 
 	let units = "english";
-	let types: AiscType = "MC";
-	let shape = "";
+	let types: AiscType = "W";
+	$: shape = (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].at(0)?.EDI_Std_Nomenclature;
 
 	async function openDatabase() {
 		const databaseWindow = new WebviewWindow("database-window", {
