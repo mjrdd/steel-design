@@ -14,7 +14,7 @@ import _WT from "./aisc-WT-english.json";
 
 import type { AiscType, AiscShape } from "./types";
 
-const _ENGLISH = {
+const ENGLISH = {
 	"2L": _2L,
 	C: _C,
 	HP: _HP,
@@ -30,4 +30,4 @@ const _ENGLISH = {
 	WT: _WT
 } as Record<AiscType, AiscShape[]>;
 
-export default _ENGLISH;
+export default ENGLISH;

@@ -14,7 +14,7 @@ import _WT from "./aisc-WT-metric.json";
 
 import type { AiscType, AiscShape } from "./types";
 
-const _METRIC = {
+const METRIC = {
 	"2L": _2L,
 	C: _C,
 	HP: _HP,
@@ -30,4 +30,4 @@ const _METRIC = {
 	WT: _WT
 } as Record<AiscType, AiscShape[]>;
 
-export default _METRIC;
+export default METRIC;
