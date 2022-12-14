@@ -6,13 +6,19 @@
 	let types: AiscType = "W";
 	$: shape = (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].at(0)?.EDI_Std_Nomenclature;
 
-	async function openDatabase() {
+	function openDatabase() {
 		const database = new WebviewWindow("database", {
 			title: "AISC Shapes Database v15.0",
 			url: "/database"
 		});
 
-		await database.show();
+		database.once("tauri://created", async () => {
+			await database.show();
+		});
+
+		database.once("tauri://error", async (e) => {
+			if (e.id === -1) await database.setFocus();
+		});
 	}
 </script>
 
