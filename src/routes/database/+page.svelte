@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { AISC_ENGLISH, AISC_METRIC, type AiscType } from "$lib/aisc";
+	import { AISC_ENGLISH, AISC_METRIC, type AiscType, type AiscUnits } from "$lib/aisc";
 
-	let units = "english";
+	let units: AiscUnits = "english";
 	let types: AiscType = "W";
 </script>
 

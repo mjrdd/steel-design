@@ -1,3 +1,5 @@
+export type AiscUnits = "english" | "metric";
+
 export type AiscType =
 	| "2L"
 	| "C"
