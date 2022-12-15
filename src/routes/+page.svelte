@@ -5,6 +5,11 @@
 	let units: AiscUnits = "english";
 	let types: AiscType = "W";
 	$: shape = (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].at(0)?.EDI_Std_Nomenclature;
+	$: shapeData = Object.entries(
+		(units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].find(
+			(item) => item["EDI_Std_Nomenclature"] === shape
+		) || []
+	);
 
 	function openDatabase() {
 		const database = new WebviewWindow("database", {
@@ -56,7 +61,7 @@
 
 <table>
 	<tbody>
-		{#each Object.entries((units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].find((r) => r["EDI_Std_Nomenclature"] === shape) || []) as [key, value]}
+		{#each shapeData as [key, value]}
 			<tr>
 				<th>{key}</th>
 				<td>{value}</td>
