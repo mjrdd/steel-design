@@ -8,6 +8,7 @@ fn main() {
 		.setup(|app| {
 			let _main = WindowBuilder::new(app, "main".to_string(), WindowUrl::App("/".into()))
 				.title("Steel Design")
+				.min_inner_size(640.0, 480.0)
 				.maximized(true)
 				.resizable(true)
 				.build()
