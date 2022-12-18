@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { WebviewWindow } from "@tauri-apps/api/window";
-	import { AISC_ENGLISH, AISC_METRIC, type AiscType, type AiscUnits } from "$lib/aisc";
+	import { AISC_ENGLISH, AISC_METRIC, latexFormat, type AiscType, type AiscUnits } from "$lib/aisc";
+	import Katex from "$components/Katex.svelte";
 
 	let units: AiscUnits = "english";
 	let types: AiscType = "W";
@@ -63,8 +64,16 @@
 	<tbody>
 		{#each shapeData as [key, value]}
 			<tr>
-				<th>{key}</th>
-				<td>{value}</td>
+				<th>
+					{#if latexFormat[key]}
+						<Katex render={latexFormat[key] || ""} />
+					{:else}
+						{key}
+					{/if}
+				</th>
+				<td>
+					{value}
+				</td>
 			</tr>
 		{/each}
 	</tbody>
@@ -76,5 +85,20 @@
 		align-items: center;
 		gap: 16px;
 		margin: 16px 0;
+	}
+
+	table {
+		border-spacing: 0;
+	}
+
+	tr:hover {
+		background-color: hsla(0 0% 0% / 0.05);
+	}
+
+	th,
+	td {
+		height: 42px;
+		padding: 0 16px;
+		border-bottom: 1px solid #ddd;
 	}
 </style>
