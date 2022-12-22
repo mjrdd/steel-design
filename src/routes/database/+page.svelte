@@ -36,7 +36,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each units === "english" ? AISC_ENGLISH[types] : AISC_METRIC[types] as aiscShapesDatabase, index}
+		{#each units === "english" ? AISC_ENGLISH[types] : AISC_METRIC[types] as aiscShapesDatabase}
 			<tr>
 				{#each Object.values(aiscShapesDatabase) as value}
 					<td>{value}</td>

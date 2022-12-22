@@ -98,11 +98,12 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
+		padding: 0 24px;
 		height: 48px;
 	}
 
 	.title {
-		margin: 0 24px;
+		margin: 0 32px;
 		font-weight: 600;
 		font-size: 20px;
 	}
@@ -111,10 +112,11 @@
 		display: flex;
 		align-items: center;
 		gap: 16px;
-		margin: 16px 0;
+		margin: 0 16px;
 	}
 
 	table {
+		margin: 12px 16px;
 		border-spacing: 0;
 	}
 

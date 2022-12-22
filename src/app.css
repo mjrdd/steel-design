@@ -1,14 +1,14 @@
 :root {
-	--theme-font-family: "Inter";
+	--theme-font-family: "InterVariable";
 	--theme-font-size: 16px;
-	--theme-font-color-base: 0 0% 9%;
+	--theme-font-color-base: 0 0% 12%;
 	--theme-font-color-dark: 0 0% 98%;
 	--theme-rounded-base: 2px;
 	--theme-rounded-container: 2px;
 	--theme-border-base: 1px;
 	--theme-bg-base: 0 0% 98%;
-	--theme-bg-dark: 0 0% 9%;
-	--theme-primary: 217 91% 60%;
+	--theme-bg-dark: 221 39% 11%;
+	--theme-primary: 160 84% 39%;
 }
 
 *,
@@ -41,14 +41,19 @@ p {
 	transition: background-color 250ms ease-in-out;
 }
 
-[data-theme="light"] {
+:root:has([data-theme="light"]) {
+	--focus-outline: var(--theme-font-color-base);
 	background-color: hsl(var(--theme-bg-base));
 	color: hsl(var(--theme-font-color-base));
+	color-scheme: light;
 }
 
-[data-theme="dark"] {
+:root:has([data-theme="dark"]) {
+	--focus-outline: var(--theme-font-color-dark);
+	--color-scheme: dark;
 	background-color: hsl(var(--theme-bg-dark));
 	color: hsl(var(--theme-font-color-dark));
+	color-scheme: dark;
 }
 
 button,
@@ -57,8 +62,12 @@ select {
 	font-family: inherit;
 }
 
-button,
-[type="button"] {
+:where(button, select, label:has(input)):focus-within {
+	outline: hsl(var(--focus-outline)) solid 2px;
+	outline-offset: 1px;
+}
+
+button {
 	cursor: pointer;
 	border: var(--theme-border-base) solid transparent;
 	border-radius: var(--theme-rounded-base);
@@ -69,11 +78,6 @@ button,
 	&:hover {
 		filter: brightness(1.1);
 	}
-
-	&:focus {
-		outline: #000 solid 1px;
-		outline-offset: 2px;
-	}
 }
 
 select {
@@ -82,9 +86,46 @@ select {
 	background: inherit;
 	padding: 6px 8px;
 	color: inherit;
+}
+
+option {
+	color: hsl(var(--theme-font-color-base));
+}
+
+label:has(input[type="radio"]) {
+	-webkit-tap-highlight-color: transparent;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: background-color 200ms ease;
+	cursor: pointer;
+	border-radius: var(--theme-rounded-base);
+	padding: 8px 12px;
+
+	&:hover {
+		background-color: hsla(var(--theme-primary) / 0.1);
+	}
+}
+
+input[type="radio"] {
+	vertical-align: middle;
+	appearance: none;
+	transition: box-shadow 150ms cubic-bezier(0.95, 0.15, 0.5, 1.25);
+	margin: 0;
+	box-shadow: inset 0 0 0 2px hsl(var(--theme-primary));
+	border: 0;
+	border-radius: 9999px;
+	background-color: none;
+	padding: 0;
+	width: 18px;
+	height: 18px;
+	pointer-events: none;
 
 	&:focus {
-		outline: #000 solid 1px;
-		outline-offset: 2px;
+		outline: none;
+	}
+
+	&:checked {
+		box-shadow: inset 0 0 0 5px hsl(var(--theme-primary));
 	}
 }
