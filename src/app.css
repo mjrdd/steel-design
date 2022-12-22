@@ -1,3 +1,16 @@
+:root {
+	--theme-font-family: "Inter";
+	--theme-font-size: 16px;
+	--theme-font-color-base: 0 0% 9%;
+	--theme-font-color-dark: 0 0% 98%;
+	--theme-rounded-base: 2px;
+	--theme-rounded-container: 2px;
+	--theme-border-base: 1px;
+	--theme-bg-base: 0 0% 98%;
+	--theme-bg-dark: 0 0% 9%;
+	--theme-primary: 217 91% 60%;
+}
+
 *,
 *::before,
 *::after {
@@ -5,5 +18,73 @@
 }
 
 html {
+	font-size: var(--theme-font-size);
 	line-height: 1.5;
+	font-family: var(--theme-font-family), sans-serif;
+}
+
+body {
+	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
+#app {
+	transition: background-color 250ms ease-in-out;
+}
+
+[data-theme="light"] {
+	background-color: hsl(var(--theme-bg-base));
+	color: hsl(var(--theme-font-color-base));
+}
+
+[data-theme="dark"] {
+	background-color: hsl(var(--theme-bg-dark));
+	color: hsl(var(--theme-font-color-dark));
+}
+
+button,
+select {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button,
+[type="button"] {
+	cursor: pointer;
+	border: var(--theme-border-base) solid transparent;
+	border-radius: var(--theme-rounded-base);
+	background-color: hsl(var(--theme-primary));
+	padding: 8px 12px;
+	color: hsl(var(--theme-font-color-dark));
+
+	&:hover {
+		filter: brightness(1.1);
+	}
+
+	&:focus {
+		outline: #000 solid 1px;
+		outline-offset: 2px;
+	}
+}
+
+select {
+	border: var(--theme-border-base) solid hsl(var(--theme-primary));
+	border-radius: var(--theme-rounded-base);
+	background: inherit;
+	padding: 6px 8px;
+	color: inherit;
+
+	&:focus {
+		outline: #000 solid 1px;
+		outline-offset: 2px;
+	}
 }

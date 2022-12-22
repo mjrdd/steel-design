@@ -3,14 +3,14 @@ module.exports = {
 	useTabs: true,
 	trailingComma: "none",
 	printWidth: 100,
+	bracketSameLine: true,
 	pluginSearchDirs: ["."],
+	plugins: [require("prettier-plugin-css-order"), require("prettier-plugin-svelte")],
 	overrides: [
 		{
 			files: ["*.svelte"],
 			options: {
-				parser: "svelte",
-				bracketSameLine: true,
-				plugins: [require("prettier-plugin-svelte")]
+				parser: "svelte"
 			}
 		},
 		{

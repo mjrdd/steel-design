@@ -2,6 +2,7 @@
 	import { WebviewWindow } from "@tauri-apps/api/window";
 	import { AISC_ENGLISH, AISC_METRIC, latexFormat, type AiscType, type AiscUnits } from "$lib/aisc";
 	import Katex from "$components/Katex.svelte";
+	import { theme } from "$lib/theme";
 
 	let units: AiscUnits = "english";
 	let types: AiscType = "W";
@@ -26,9 +27,22 @@
 			if (e.id === -1) await database.setFocus();
 		});
 	}
+
+	let darkMode = $theme === "dark";
+	$: theme.set(darkMode ? "dark" : "light");
 </script>
 
-<h1>AISC Shape Properties</h1>
+<header>
+	<div>
+		<span class="title">Steel Design</span>
+	</div>
+	<div>
+		<label>
+			<input type="checkbox" bind:checked={darkMode} />
+			Dark Mode
+		</label>
+	</div>
+</header>
 
 <div class="header">
 	<div>
@@ -80,6 +94,19 @@
 </table>
 
 <style>
+	header {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		height: 48px;
+	}
+
+	.title {
+		margin: 0 24px;
+		font-weight: 600;
+		font-size: 20px;
+	}
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -97,8 +124,8 @@
 
 	th,
 	td {
-		height: 42px;
-		padding: 0 16px;
 		border-bottom: 1px solid #ddd;
+		padding: 0 16px;
+		height: 42px;
 	}
 </style>
