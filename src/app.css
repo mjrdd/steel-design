@@ -9,6 +9,25 @@
 	--theme-bg-base: 0 0% 98%;
 	--theme-bg-dark: 221 39% 11%;
 	--theme-primary: 160 84% 39%;
+
+	transition: background-color 0.3s ease-in-out;
+	background-color: hsl(var(--root-background-color, 0 0% 100%));
+	color: hsl(var(--root-font-color, 0 0% 0%));
+	color-scheme: var(--root-color-scheme, normal);
+
+	&:has([data-theme="light"]) {
+		--focus-outline: var(--theme-font-color-base);
+		--root-background-color: var(--theme-bg-base);
+		--root-font-color: var(--theme-font-color-base);
+		--root-color-scheme: light;
+	}
+
+	&:has([data-theme="dark"]) {
+		--focus-outline: var(--theme-font-color-dark);
+		--root-background-color: var(--theme-bg-dark);
+		--root-font-color: var(--theme-font-color-dark);
+		--root-color-scheme: dark;
+	}
 }
 
 *,
@@ -35,24 +54,6 @@ h5,
 h6,
 p {
 	margin: 0;
-}
-
-#app {
-	transition: background-color 0.3s ease-in-out;
-}
-
-:root:has([data-theme="light"]) {
-	--focus-outline: var(--theme-font-color-base);
-	background-color: hsl(var(--theme-bg-base));
-	color: hsl(var(--theme-font-color-base));
-	color-scheme: light;
-}
-
-:root:has([data-theme="dark"]) {
-	--focus-outline: var(--theme-font-color-dark);
-	background-color: hsl(var(--theme-bg-dark));
-	color: hsl(var(--theme-font-color-dark));
-	color-scheme: dark;
 }
 
 button,
