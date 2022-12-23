@@ -37,23 +37,18 @@
 		<span class="title">Steel Design</span>
 	</div>
 	<div>
-		<label>
-			<input type="checkbox" bind:checked={darkMode} />
-			Dark Mode
-		</label>
+		<input type="checkbox" id="darkmode" class="switch" bind:checked={darkMode} />
+		<label for="darkmode">Dark Mode</label>
 	</div>
 </header>
 
 <div class="header">
 	<div>
-		<label>
-			<input type="radio" name="units" value="english" bind:group={units} />
-			English
-		</label>
-		<label>
-			<input type="radio" name="units" value="metric" bind:group={units} />
-			Metric
-		</label>
+		<input type="radio" id="english-unit" name="units" value="english" bind:group={units} />
+		<label for="english-unit">English</label>
+
+		<input type="radio" id="metric-unit" name="units" value="metric" bind:group={units} />
+		<label for="metric-unit">Metric</label>
 	</div>
 	<div>
 		<select bind:value={types}>

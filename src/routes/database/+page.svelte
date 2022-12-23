@@ -9,14 +9,11 @@
 
 <div class="header">
 	<div>
-		<label>
-			<input type="radio" name="units" value="english" bind:group={units} />
-			English
-		</label>
-		<label>
-			<input type="radio" name="units" value="metric" bind:group={units} />
-			Metric
-		</label>
+		<input type="radio" id="english-unit" name="units" value="english" bind:group={units} />
+		<label for="english-unit">English</label>
+
+		<input type="radio" id="metric-unit" name="units" value="metric" bind:group={units} />
+		<label for="metric-unit">Metric</label>
 	</div>
 	<div>
 		<select bind:value={types}>
