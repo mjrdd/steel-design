@@ -1,5 +1,5 @@
 <script lang="ts">
-	import "@fontsource/inter/variable.css";
+	import "@mjrdd/inter";
 	import "katex/dist/katex.css";
 	import "../app.css";
 

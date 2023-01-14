@@ -1,5 +1,4 @@
 :root {
-	--theme-font-family: "InterVariable";
 	--theme-font-size: 16px;
 	--theme-font-color-base: 0 0% 12%;
 	--theme-font-color-dark: 0 0% 98%;
@@ -39,7 +38,12 @@
 html {
 	font-size: var(--theme-font-size, 16px);
 	line-height: 1.5;
-	font-family: var(--theme-font-family, sans-serif);
+
+	font-family: "Inter", sans-serif;
+
+	@supports (font-variation-settings: normal) {
+		font-family: "Inter var", sans-serif;
+	}
 }
 
 body {

@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@fontsource/inter': ^4.5.14
+  '@mjrdd/inter': ^1.0.2
   '@sveltejs/adapter-static': ^1.0.1
   '@sveltejs/kit': ^1.0.12
   '@tauri-apps/api': ^1.2.0
@@ -28,7 +28,7 @@ specifiers:
   vite: ^4.0.4
 
 dependencies:
-  '@fontsource/inter': 4.5.14
+  '@mjrdd/inter': 1.0.2
   '@tauri-apps/api': 1.2.0
   katex: 0.16.4
   mathjs: 11.5.0
@@ -280,10 +280,6 @@ packages:
       - supports-color
     dev: true
 
-  /@fontsource/inter/4.5.14:
-    resolution: {integrity: sha512-JDC9AocdPLuGsASkvWw9hS5gtHE7K9dOwL98XLrk5yjYqxy4uVnScG58NUvFMJDVJRl/7c8Wnap6PEs+7Zvj1Q==}
-    dev: false
-
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
     engines: {node: '>=10.10.0'}
@@ -319,6 +315,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@mjrdd/inter/1.0.2:
+    resolution: {integrity: sha512-Sia9zX1A2tqlpL320gUESFHpuanuJtAUdnASMDXHTlb2IQdiS3jxBrjuOguKnDjumIQ1oaNrsNKpNlTbqajeYw==}
+    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
