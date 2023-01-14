@@ -5,19 +5,10 @@ module.exports = {
 	printWidth: 100,
 	bracketSameLine: true,
 	pluginSearchDirs: ["."],
-	plugins: [require("prettier-plugin-css-order"), require("prettier-plugin-svelte")],
-	overrides: [
-		{
-			files: ["*.svelte"],
-			options: {
-				parser: "svelte"
-			}
-		},
-		{
-			files: ["*.rs"],
-			options: {
-				plugins: [require("prettier-plugin-rust")]
-			}
-		}
-	]
+	plugins: [
+		require("prettier-plugin-css-order"),
+		require("prettier-plugin-svelte"),
+		require("prettier-plugin-rust")
+	],
+	overrides: [{ files: "*.svelte", options: { parser: "svelte" } }]
 };
