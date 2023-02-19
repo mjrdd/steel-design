@@ -1,12 +1,20 @@
 <script lang="ts">
 	import { WebviewWindow } from "@tauri-apps/api/window";
-	import { AISC_ENGLISH, AISC_METRIC, latexFormat, type AiscType, type AiscUnits } from "$lib/aisc";
+	import {
+		AISC_ENGLISH,
+		AISC_METRIC,
+		latexFormat,
+		type AiscType,
+		type AiscUnits
+	} from "$lib/aisc";
 	import Katex from "$components/Katex.svelte";
 	import { theme } from "$lib/theme";
 
 	let units: AiscUnits = "english";
 	let types: AiscType = "W";
-	$: shape = (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].at(0)?.EDI_Std_Nomenclature;
+	$: shape = (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].at(
+		0
+	)?.EDI_Std_Nomenclature;
 	$: shapeData = Object.entries(
 		(units === "english" ? AISC_ENGLISH : AISC_METRIC)[types].find(
 			(item) => item["EDI_Std_Nomenclature"] === shape
@@ -60,7 +68,8 @@
 	<div>
 		<select bind:value={shape}>
 			{#each (units === "english" ? AISC_ENGLISH : AISC_METRIC)[types] as shapes}
-				<option value={shapes["EDI_Std_Nomenclature"]}>{shapes["EDI_Std_Nomenclature"]}</option>
+				<option value={shapes["EDI_Std_Nomenclature"]}
+					>{shapes["EDI_Std_Nomenclature"]}</option>
 			{/each}
 		</select>
 	</div>
