@@ -4,11 +4,21 @@ module.exports = {
 	trailingComma: "none",
 	printWidth: 100,
 	bracketSameLine: true,
-	pluginSearchDirs: ["."],
 	plugins: [
-		require("prettier-plugin-css-order"),
 		require("prettier-plugin-svelte"),
-		require("prettier-plugin-rust")
+
+		// https://github.com/tailwindlabs/prettier-plugin-tailwindcss
+		require("prettier-plugin-tailwindcss")
 	],
-	overrides: [{ files: "*.svelte", options: { parser: "svelte" } }]
+	pluginSearchDirs: false,
+	overrides: [
+		{ files: ["*.svelte"], options: { parser: "svelte" } },
+		{
+			files: ["*.rs"],
+			options: {
+				bracketSameLine: false,
+				plugins: [require("prettier-plugin-rust")]
+			}
+		}
+	]
 };
